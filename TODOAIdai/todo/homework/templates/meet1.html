@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=ne, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="{% static 'styless/index.css' %}"/>
+    <link rel="stylesheet" href="{% static 'styless/checkbox.css' %}"/>
+</head>
+<body>
+    <section>
+        <div class="create_container">
+            <form action="{% url 'add-tome' %}" method="POST"> 
+            {% csrf_token %}
+            <input 
+            class="create_input"
+            type="text"
+            placeholder="Новая встреча"
+            name="todo_persone"
+            />
+
+            <button class="create_button">запись</button>  
+            </form>
+        </div>
+        <div class="todo_container">
+            {% for tomeet in tomeet_list %}
+              <div class="todo_item 
+              {% if todo.is_favorite %}
+            market
+            {% endif %}
+            {% if todo.is_closed %}
+            mark
+            {% endif %}">
+              ">
+                <div class="todo_item_header">
+                    <label for="checkbox_container">
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <h4>{{tomeet.persone }}</h4>
+                </div>
+                <div class="todo_item_footer">
+                    <p>{{ tomeet.date_of_meeting }}</p>
+                    <div class="action_buttons">
+                        {% if todo.is_favorite %}
+                        <a href="{% url 'unmark-todo' todo.id %}"><img src="{% static './icons/1_2789.png' %}"></a>
+                        {% else %}
+                        <a href="{% url 'mark-todo' todo.id %}"><img src="{% static './icons/1077038.png' %}"></a>
+                        {% endif %}
+
+                        <a href="{% url 'delt-todo' todo.id %}"><img src="{% static 'icons/1485477104-basket_78591.png' %}"/></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+        </div>
+    </section>
+</body>
+</html>
